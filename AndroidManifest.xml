@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.northwinds.defaultbrowser"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8"/>
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        <activity
+            android:name=".BrowserActivity">
+	    <intent-filter>
+		<action android:name="android.intent.action.MAIN" />
+		<category android:name="android.intent.category.LAUNCHER" />
+		<!-- Browser/Chrome
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+		-->
+	    </intent-filter>
+	    <intent-filter>
+		<action android:name="android.intent.action.VIEW" />
+		<category android:name="android.intent.category.DEFAULT" />
+		<category android:name="android.intent.category.BROWSABLE" />
+		<data android:scheme="http" />
+		<data android:scheme="https" />
+	    </intent-filter>
+	    <intent-filter>
+		<action android:name="android.intent.action.VIEW" />
+		<category android:name="android.intent.category.BROWSABLE" />
+		<category android:name="android.intent.category.DEFAULT" />
+		<!-- Firefox/Dolphin
+		<data android:scheme="file" />
+		-->
+		<data android:scheme="http" />
+		<data android:scheme="https" />
+		<data android:mimeType="text/html" />
+		<data android:mimeType="text/plain" />
+		<data android:mimeType="application/xhtml+xml" />
+	    </intent-filter>
+	    <intent-filter>
+		<action android:name="android.intent.action.WEB_SEARCH" />
+		<category android:name="android.intent.category.DEFAULT" />
+		<category android:name="android.intent.category.BROWSABLE" />
+		<data android:scheme="" />
+		<data android:scheme="http" />
+		<data android:scheme="https" />
+	    </intent-filter>
+	    <!-- Browser/Chrome/Dolphin/Skyfire
+	    <intent-filter>
+		<action android:name="android.intent.action.MEDIA_SEARCH" />
+		<category android:name="android.intent.category.DEFAULT" />
+	    </intent-filter>
+	    -->
+	    <!-- Browser/Chrome/Skyfire
+	    <intent-filter>
+		<action android:name="android.speech.action.VOICE_SEARCH_RESULTS" />
+		<category android:name="android.intent.category.DEFAULT" />
+	    </intent-filter>
+	    -->
+	    <!-- Browser/Chrome
+            <intent-filter android:priority="-101">
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+            </intent-filter>
+	    -->
+        </activity>
+    </application>
+</manifest>
