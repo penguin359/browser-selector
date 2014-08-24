@@ -99,7 +99,7 @@ public class BrowserActivity extends Activity {
 		}
 	}
 
-	private static final int CREATE_SHORTCUT_REQUEST = 0;
+	//private static final int CREATE_SHORTCUT_REQUEST = 0;
 	static final String EXTRA_INTENT = "org.northwinds.intents.EXTRA_INTENT";
 
 	private Intent mIntent;
