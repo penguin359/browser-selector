@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
@@ -19,11 +21,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class BrowserActivity extends Activity {
+	private static final String TAG = "BrowserActivity";
+
 	private static class PackageAdapter extends BaseAdapter {
 		private static final String TAG = "PackageAdapter";
 
@@ -104,10 +109,55 @@ public class BrowserActivity extends Activity {
 
 	private Intent mIntent;
 
+	void startBrowser(SharedPreferences prefs, String basePref, Intent intent) {
+		String packagePref = basePref + "_package";
+		String namePref = basePref + "_name";
+		String packageName = prefs.getString(packagePref, null);
+		String name = prefs.getString(namePref, null);
+		if(packageName == null || name == null) {
+			startActivity(new Intent(this, SettingsActivity.class));
+			packageName = prefs.getString(packagePref, null);
+			name = prefs.getString(namePref, null);
+			if(packageName == null || name == null) {
+				Toast.makeText(getApplicationContext(), "Please set a default browser in settings.", Toast.LENGTH_SHORT).show();
+				finish();
+				return;
+			}
+		}
+		ComponentName compName = new ComponentName(packageName, name);
+		intent.setComponent(compName);
+		startActivity(intent);
+		finish();
+	}
+
 	/** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+	SharedPreferences prefs = getSharedPreferences("browser_prefs", MODE_PRIVATE);
+
+	IntentFilter filter = new IntentFilter(Intent.ACTION_VIEW);
+	filter.addCategory(Intent.CATEGORY_DEFAULT);
+	filter.addCategory(Intent.CATEGORY_BROWSABLE);
+	filter.addDataScheme("http");
+	filter.addDataScheme("https");
+	//filter.addDataScheme("file"); // Firefox/Dolphin
+	if(filter.match(getContentResolver(), getIntent(), false, "Match-DefaultBrowser") >= 0) {
+		startBrowser(prefs, "http_browser", getIntent());
+		return;
+	}
+	try {
+		filter.addDataType("text/html");
+		filter.addDataType("text/plain");
+		if(filter.match(getContentResolver(), getIntent(), false, "Match-DefaultBrowser") >= 0) {
+			startBrowser(prefs, "http_browser_mime", getIntent());
+			return;
+		}
+	} catch(IntentFilter.MalformedMimeTypeException ex) {
+		Log.e(TAG, "Failed to parse mime-type: " + ex.toString());
+	}
+
 	mIntent = new Intent(getIntent());
 	mIntent.setComponent(null);
         setContentView(R.layout.main);
