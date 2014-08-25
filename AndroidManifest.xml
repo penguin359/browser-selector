@@ -13,14 +13,16 @@
 	-->
         <activity
             android:name=".BrowserActivity">
+	    <!--
 	    <intent-filter>
 		<action android:name="android.intent.action.MAIN" />
 		<category android:name="android.intent.category.LAUNCHER" />
-		<!-- Browser/Chrome
+		<!- Browser/Chrome
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.APP_BROWSER" />
-		-->
+		->
 	    </intent-filter>
+	    -->
 	    <intent-filter>
 		<action android:name="android.intent.action.VIEW" />
 		<category android:name="android.intent.category.DEFAULT" />
@@ -69,6 +71,13 @@
                 <data android:scheme="https" />
             </intent-filter>
 	    -->
+        </activity>
+        <activity
+            android:name=".SettingsActivity">
+	    <intent-filter>
+		<action android:name="android.intent.action.MAIN" />
+		<category android:name="android.intent.category.LAUNCHER" />
+	    </intent-filter>
         </activity>
     </application>
 </manifest>
