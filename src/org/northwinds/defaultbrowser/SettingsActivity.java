@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.northwinds.defaultbrowser.R;
 import android.app.Activity;
-import android.content.ComponentName;
+//import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+//import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -17,11 +17,11 @@ import android.os.Bundle;
 //import android.util.Base64;
 import android.util.Log;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+//import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
+//import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.LayoutInflater;
@@ -104,7 +104,7 @@ public class SettingsActivity extends Activity {
 	//private static final int CREATE_SHORTCUT_REQUEST = 0;
 	static final String EXTRA_INTENT = "org.northwinds.intents.EXTRA_INTENT";
 
-	private Intent mIntent;
+	//private Intent mIntent;
 
 	private SetBrowserPref mHttpPref;
 	private SetBrowserPref mHttpMimePref;
