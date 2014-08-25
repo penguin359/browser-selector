@@ -52,6 +52,12 @@ public class SettingsActivity extends Activity {
 			mLayoutResource = layoutResource;
 			mIconId = iconId;
 			mTextId = textId;
+
+			/* Don't include myself in list of browser choices */
+			for(ResolveInfo info: mInfoList)
+				if(info.activityInfo.packageName.equals(context.getPackageName()))
+					mInfoList.remove(info);
+					//mInfoList.remove();
 		}
 
 		public int getCount() {
@@ -92,15 +98,6 @@ public class SettingsActivity extends Activity {
 				icon.setImageDrawable(info.loadIcon(mPm));
 
 			return view;
-		}
-	}
-
-	private class ActivateBrowser implements OnItemClickListener {
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			ResolveInfo info = (ResolveInfo)parent.getAdapter().getItem(position);
-			mIntent.setComponent(new ComponentName(info.activityInfo.packageName, info.activityInfo.name));
-			startActivity(mIntent);
-			finish();
 		}
 	}
 
@@ -184,7 +181,7 @@ public class SettingsActivity extends Activity {
 		super.onPause();
 	}
 
-	private class SetBrowserPref implements OnItemSelectedListener {
+	private static class SetBrowserPref implements OnItemSelectedListener {
 		private SharedPreferences mPrefs;
 		private String mPackagePref;
 		private String mNamePref;

@@ -2,6 +2,6 @@
 <resources>
     <string name="hello">Hello World, BrowserActivity!</string>
     <string name="app_name">Default Browser</string>
-    <string name="http_browser">HTTP Protocol</string>
-    <string name="http_browser_mime">HTTP Protocol w/ mime-type</string>
+    <string name="http_browser">HTTP(S) Protocol</string>
+    <string name="http_browser_mime">HTTP(S) Protocol w/ mime-type</string>
 </resources>
