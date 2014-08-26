@@ -136,17 +136,19 @@ public class BrowserActivity extends Activity {
 	private void startChooser(Intent intent) {
 		mIntent = new Intent(intent);
 		mIntent.setComponent(null);
-		setContentView(R.layout.main);
-		setResult(RESULT_CANCELED);
-		//startActivityForResult(Intent.createChooser(mIntent, "Browser"), CREATE_SHORTCUT_REQUEST);
-		List<ResolveInfo> list = getPackageManager().queryIntentActivities(mIntent, 0);
-		ListView view = (ListView)findViewById(R.id.list);
-		PackageAdapter adapter = new PackageAdapter(getApplicationContext(),
-				list, R.layout.row, R.id.icon, R.id.text);
-		view.setAdapter(adapter);
-		view.setOnItemClickListener(new ActivateBrowser());
-		//startActivity(Intent.createChooser(mIntent, "Browser"));
-		//finish();
+		//setContentView(R.layout.main);
+		//setResult(RESULT_CANCELED);
+		finish();
+		startActivity(Intent.createChooser(mIntent, "Browser"));
+		////startActivityForResult(Intent.createChooser(mIntent, "Browser"), CREATE_SHORTCUT_REQUEST);
+		//List<ResolveInfo> list = getPackageManager().queryIntentActivities(mIntent, 0);
+		//ListView view = (ListView)findViewById(R.id.list);
+		//PackageAdapter adapter = new PackageAdapter(getApplicationContext(),
+		//		list, R.layout.row, R.id.icon, R.id.text);
+		//view.setAdapter(adapter);
+		//view.setOnItemClickListener(new ActivateBrowser());
+		////startActivity(Intent.createChooser(mIntent, "Browser"));
+		////finish();
 	}
 
 	/** Called when the activity is first created. */
