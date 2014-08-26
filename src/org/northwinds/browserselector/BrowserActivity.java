@@ -1,8 +1,7 @@
-package org.northwinds.defaultbrowser;
+package org.northwinds.browserselector;
 
 import java.util.List;
 
-import org.northwinds.defaultbrowser.R;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
