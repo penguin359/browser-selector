@@ -54,10 +54,16 @@ public class SettingsActivity extends Activity {
 			mTextId = textId;
 
 			/* Don't include myself in list of browser choices */
+			ResolveInfo myInfo = null;
 			for(ResolveInfo info: mInfoList)
-				if(info.activityInfo.packageName.equals(context.getPackageName()))
-					mInfoList.remove(info);
+				if(info.activityInfo.packageName.equals(context.getPackageName())) {
+					//mInfoList.remove(info);
 					//mInfoList.remove();
+					myInfo = info;
+					break;
+				}
+			if(myInfo != null)
+				mInfoList.remove(myInfo);
 		}
 
 		public int getCount() {
