@@ -123,11 +123,30 @@ public class BrowserActivity extends Activity {
 				finish();
 				return;
 			}
+		} else if("default".equals(packageName)) {
+			startChooser(intent);
+			return;
 		}
 		ComponentName compName = new ComponentName(packageName, name);
 		intent.setComponent(compName);
 		startActivity(intent);
 		finish();
+	}
+
+	private void startChooser(Intent intent) {
+		mIntent = new Intent(intent);
+		mIntent.setComponent(null);
+		setContentView(R.layout.main);
+		setResult(RESULT_CANCELED);
+		//startActivityForResult(Intent.createChooser(mIntent, "Browser"), CREATE_SHORTCUT_REQUEST);
+		List<ResolveInfo> list = getPackageManager().queryIntentActivities(mIntent, 0);
+		ListView view = (ListView)findViewById(R.id.list);
+		PackageAdapter adapter = new PackageAdapter(getApplicationContext(),
+				list, R.layout.row, R.id.icon, R.id.text);
+		view.setAdapter(adapter);
+		view.setOnItemClickListener(new ActivateBrowser());
+		//startActivity(Intent.createChooser(mIntent, "Browser"));
+		//finish();
 	}
 
 	/** Called when the activity is first created. */
@@ -158,19 +177,7 @@ public class BrowserActivity extends Activity {
 		Log.e(TAG, "Failed to parse mime-type: " + ex.toString());
 	}
 
-	mIntent = new Intent(getIntent());
-	mIntent.setComponent(null);
-        setContentView(R.layout.main);
-        setResult(RESULT_CANCELED);
-        //startActivityForResult(Intent.createChooser(mIntent, "Browser"), CREATE_SHORTCUT_REQUEST);
-	List<ResolveInfo> list = getPackageManager().queryIntentActivities(mIntent, 0);
-	ListView view = (ListView)findViewById(R.id.list);
-	PackageAdapter adapter = new PackageAdapter(getApplicationContext(),
-			list, R.layout.row, R.id.icon, R.id.text);
-	view.setAdapter(adapter);
-	view.setOnItemClickListener(new ActivateBrowser());
-        //startActivity(Intent.createChooser(mIntent, "Browser"));
-	//finish();
+	startChooser(getIntent());
     }
 
 	/* (non-Javadoc)

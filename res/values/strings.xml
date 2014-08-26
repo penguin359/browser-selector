@@ -4,4 +4,5 @@
     <string name="app_name">Default Browser</string>
     <string name="http_browser">HTTP(S) Protocol</string>
     <string name="http_browser_mime">HTTP(S) Protocol w/ mime-type</string>
+    <string name="always_ask">Always Ask</string>
 </resources>

@@ -67,10 +67,12 @@ public class SettingsActivity extends Activity {
 		}
 
 		public int getCount() {
-			return mInfoList.size();
+			return mInfoList.size()+1;
 		}
 
 		public ResolveInfo getItem(int position) {
+			if(position >= mInfoList.size())
+				return null;
 			return mInfoList.get(position);
 		}
 
@@ -98,6 +100,13 @@ public class SettingsActivity extends Activity {
 			}
 
 			ResolveInfo info = getItem(position);
+			if(info == null) {
+				if(text != null)
+					text.setText(R.string.always_ask);
+				if(icon != null)
+					icon.setImageResource(R.drawable.logo);
+				return view;
+			}
 			if(text != null)
 				text.setText(info.loadLabel(mPm));
 			if(icon != null)
@@ -212,7 +221,12 @@ public class SettingsActivity extends Activity {
 				return;
 			for(int i = 0; i < adapter.getCount(); i++) {
 				ResolveInfo info = adapter.getItem(i);
-				if(info.activityInfo.packageName.equals(packageName) &&
+				if(info == null) {
+					if("default".equals(packageName)) {
+						view.setSelection(i);
+						break;
+					}
+				} else if(info.activityInfo.packageName.equals(packageName) &&
 				   info.activityInfo.name.equals(name)) {
 					view.setSelection(i);
 					break;
@@ -223,8 +237,13 @@ public class SettingsActivity extends Activity {
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 			ResolveInfo info = mAdapter.getItem(pos);
 			SharedPreferences.Editor editor = mPrefs.edit();
-			editor.putString(mPackagePref, info.activityInfo.packageName);
-			editor.putString(mNamePref, info.activityInfo.name);
+			if(info == null) {
+				editor.putString(mPackagePref, "default");
+				editor.putString(mNamePref, "default");
+			} else {
+				editor.putString(mPackagePref, info.activityInfo.packageName);
+				editor.putString(mNamePref, info.activityInfo.name);
+			}
 			editor.commit();
 		}
 
