@@ -8,12 +8,12 @@
 	    android:id="@+id/icon"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-	android:textAppearance="?android:attr/textAppearanceListItem"
         />
     <TextView
 	    android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+	android:textAppearance="?android:attr/textAppearanceListItem"
         />
 
 </LinearLayout>

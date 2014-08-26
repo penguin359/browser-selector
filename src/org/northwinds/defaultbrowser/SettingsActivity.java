@@ -106,7 +106,9 @@ public class SettingsActivity extends Activity {
 
 	//private Intent mIntent;
 
+	@SuppressWarnings("unused")
 	private SetBrowserPref mHttpPref;
+	@SuppressWarnings("unused")
 	private SetBrowserPref mHttpMimePref;
 
 	/** Called when the activity is first created. */
